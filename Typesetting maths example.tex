@@ -1,0 +1,41 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you open the
+% 'Share' menu, you can invite other users to edit at the same
+% time. See www.overleaf.com/learn for more info. Enjoy!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article} % Document class declaration
+\usepackage{amsmath} % Package for advanced math typesetting
+
+\begin{document} % Begin the document
+
+% Inline math expression
+This is a simple math expression \(\sqrt{x^2+1}\) inside text. 
+
+% Inline math expression using the math environment
+And this is also the same: 
+\begin{math}
+\sqrt{x^2+1}
+\end{math}
+but by using another command.
+
+% Display math expression without numbering
+This is a simple math expression without numbering
+\[\sqrt{x^2+1}\] 
+separated from text.
+
+% Display math expression using the displaymath environment
+This is also the same:
+\begin{displaymath}
+\sqrt{x^2+1}
+\end{displaymath}
+
+% Display math expression using the equation* environment
+\ldots and this:
+\begin{equation*}
+\sqrt{x^2+1}
+\end{equation*}
+
+\end{document} % End the document
