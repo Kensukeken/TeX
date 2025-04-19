@@ -1,0 +1,289 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+\usepackage{xcolor}
+\definecolor{titlecolor}{RGB}{0,0,128}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\setlength{\columnsep}{0.3in}
+\pagestyle{empty}
+
+% Define custom colors
+\definecolor{codebg}{rgb}{0.97,0.97,1.0} 
+\definecolor{keywordcolor}{rgb}{0.4,0.1,0.6} 
+\definecolor{commentcolor}{rgb}{0.6, 0.4, 0.8} 
+\definecolor{stringcolor}{rgb}{0.1,0.3,0.6}   
+
+% Listings setup
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  tabsize=2,
+  language=Java,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  commentstyle=\color{commentcolor}\itshape,
+  stringstyle=\color{stringcolor}
+}
+
+% Section title formatting
+\titleformat{\section}{\large\bfseries\color{titlecolor}}{antiquefuchsia}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Java Programming II - Reference Sheet} \\
+\end{center}
+
+\vspace{0.2cm}
+\begin{multicols}{2}
+
+% Java Section
+\section*{Java Essentials}
+
+\subsection*{Instance Keyword}
+\begin{lstlisting}
+// "this" refers to the current object instance
+public class Dog {
+    String name;
+    public Dog(String name) {
+        this.name = name;
+    }
+}
+\end{lstlisting}
+
+\subsection*{Inheritance \& Overriding}
+\begin{lstlisting}
+// Method overriding with @Override
+class Animal {
+    void speak() { System.out.println("Sound"); }
+}
+class Dog extends Animal {
+    @Override
+    void speak() { System.out.println("Bark"); }
+}
+\end{lstlisting}
+
+\subsection*{Abstract \& Interface}
+\begin{lstlisting}
+// Abstract class has abstract method(s)
+abstract class Shape {
+    abstract void draw();
+}
+
+// Interface contains only abstract methods by default
+interface Drawable {
+    void draw();
+}
+\end{lstlisting}
+
+\subsection*{Instanceof \& synchronized}
+\begin{lstlisting}
+// Check if object is an instance of a class
+if (obj instanceof Dog) {
+    ((Dog) obj).speak();
+}
+synchronized(obj) { /* safe code */ }
+\end{lstlisting}
+
+\subsection*{ArrayList}
+\begin{lstlisting}
+// Dynamic array
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+\end{lstlisting}
+\subsection*{Modifiers}
+public – accessible everywhere \\
+private – accessible within class only \\
+protected – accessible within package and subclasses
+\subsection*{String Methods \& Format}
+\begin{lstlisting}
+// trim() removes leading/trailing spaces
+String name = " John ".trim().toUpperCase();
+// Format a string with variables
+String s = String.format("Age: %d", 20);
+\end{lstlisting}
+
+\subsection*{Parsing}
+\begin{lstlisting}
+// Convert String to int or double
+int x = Integer.parseInt("5");
+double d = Double.parseDouble("3.14");
+\end{lstlisting}
+
+
+
+% JavaFX Section
+\section*{JavaFX Essentials}
+
+\subsection*{App Structure}
+\begin{lstlisting}
+// JavaFX main app structure
+public class App extends Application {
+  public void start(Stage s) {
+    VBox root = new VBox(); // layout container
+    s.setScene(new Scene(root, 300, 200));
+    s.setTitle("My App");
+    s.show();
+  }
+}
+\end{lstlisting}
+
+\subsection*{Layouts}
+\begin{lstlisting}
+// VBox with spacing and alignment
+VBox v = new VBox(10);
+v.setAlignment(Pos.CENTER);
+
+// GridPane with gaps
+GridPane g = new GridPane();
+g.setHgap(10); g.setVgap(10);
+\end{lstlisting}
+
+\subsection*{TextField, Button}
+\begin{lstlisting}
+// TextField with prompt and disabled editing/focus
+TextField tf = new TextField();
+tf.setPromptText("Enter");
+tf.setEditable(false);
+tf.setFocusTraversable(false);
+
+// Button with action handler
+Button btn = new Button("Click");
+btn.setOnAction(e -> doSomething());
+\end{lstlisting}
+
+\subsection*{ImageView}
+\begin{lstlisting}
+// Load and display an image
+Image img = new Image("file:img.png");
+ImageView iv = new ImageView(img);
+iv.setFitWidth(100);
+iv.setPreserveRatio(true);
+\end{lstlisting}
+
+% Animations & Media
+\section*{JavaFX Animation}
+\begin{lstlisting}
+// Fade animation: 1s duration, fully visible to 30% opacity
+FadeTransition ft = new FadeTransition(Duration.seconds(1), node);
+ft.setFromValue(1.0); ft.play();
+// Move node by X axis
+TranslateTransition tt = new TranslateTransition(Duration.seconds(1), node);
+tt.setByX(100); tt.play();
+// Rotate 180 degrees
+RotateTransition rt = new RotateTransition(Duration.seconds(2), node);
+rt.setByAngle(180); rt.play();
+// Play multiple animations together
+ParallelTransition pt = new ParallelTransition(rt, ft);
+pt.play();
+// Scale to 2x size
+ScaleTransition st = new ScaleTransition(Duration.seconds(1), node);
+st.setToX(2.0); st.setToY(2.0); st.play();
+// Fill color from red to blue
+FillTransition fill = new FillTransition(Duration.seconds(1), shape);
+fill.setFromValue(Color.RED); fill.setToValue(Color.BLUE); fill.play();
+// Stroke color from black to green
+StrokeTransition stroke = new StrokeTransition(Duration.seconds(1), shape);
+stroke.setFromValue(Color.BLACK); stroke.setToValue(Color.GREEN); stroke.play();
+// Pause for 2 seconds
+PauseTransition pause = new PauseTransition(Duration.seconds(2));
+pause.setOnFinished(e -> System.out.println("Paused done!")); pause.play();
+// Move along a path
+Path path = new Path();
+path.getElements().addAll(new MoveTo(0, 0), new LineTo(100, 100));
+PathTransition pathT = new PathTransition(Duration.seconds(2), path, node); pathT.play();
+// Play animations one after another
+SequentialTransition seq = new SequentialTransition(ft, rt); 
+seq.play();
+\end{lstlisting}
+
+\subsection*{Event Handler}
+\begin{lstlisting}[language=java]
+button.setOnAction(e ->{
+});
+node.setOnKeyPressed(e ->{
+});
+mouse.setOnMouseClicked(e ->{
+});
+\end{lstlisting}
+
+\section*{Media (Audio)}
+\begin{lstlisting}
+// Load and play audio file
+Media m = new Media(new File("music.mp3").toURI().toString());
+MediaPlayer mp = new MediaPlayer(m);
+mp.play(); // Also: pause(), stop(), etc.
+\end{lstlisting}
+
+% File I/O and Networking
+% File I/O
+\section*{File I/O}
+\begin{lstlisting}
+// Read
+Scanner sc = new Scanner(new File("file.txt"));
+while(sc.hasNextLine()) System.out.println(sc.nextLine());
+sc.close();
+// Write
+PrintWriter pw = new PrintWriter("file.txt");
+pw.println("Text"); pw.close();
+// Binary
+FileOutputStream out = new FileOutputStream("file.bin");
+out.write(65); out.close();
+FileInputStream in = new FileInputStream("file.bin");
+int byte = in.read(); in.close();
+// Checks
+File f = new File("file.txt");
+f.exists() && f.canRead() && !f.isDirectory();
+\end{lstlisting}
+\subsection*{Java Primitive Types }
+\begin{lstlisting}[language=Java, basicstyle=\footnotesize\ttfamily]
+// Type     Size     Default     Range / Example
+boolean   1 bit    false      true / false
+byte      8 bit    0          -128 to 127
+char     16 bit    '\u0000'   Unicode ('A', '1')
+int      32 bit    0          -2B to 2B
+float    32 bit    0.0f       Decimal (add f)
+double   64 bit    0.0        Precise decimal
+\end{lstlisting}
+\subsection*{Threads}
+\begin{lstlisting}
+new Thread(() -> { System.out.println("Run");
+    try { Thread.sleep(1000); } catch (Exception e) {}}).start();
+    class MyRunnable implements Runnable {
+        public void run() { System.out.println("Runnable"); }
+    }
+    class MyThread extends Thread {
+        public void run() { System.out.println("Subclass"); }
+    }
+} Thread.sleep(ms);  // Pause t.join(); // Wait 
+\end{lstlisting}
+
+\section*{Networking}
+\subsection*{Server}
+\begin{lstlisting}
+// Server waits for a client connection
+ServerSocket server = new ServerSocket(6000);
+Socket client = server.accept();
+BufferedReader in = new BufferedReader(
+  new InputStreamReader(client.getInputStream()));
+\end{lstlisting}
+
+\subsection*{Client}
+\begin{lstlisting}
+// Client connects and sends message
+Socket s = new Socket("localhost", 6000);
+PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+out.println("Hi Server");
+\end{lstlisting}
+
+
+\end{multicols}
+
+
+\end{document}
